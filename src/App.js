@@ -1,24 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+// BrowserRouter, Route, Routes = sont des composants bootstrap
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import TopBar from './components/TopBar';
+import About from './components/About';
+import Contact from './components/Contact';
+import NavBar from './components/NavBar';
+import HomeScreen from './screens/HomeScreen';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <TopBar />
+      <NavBar />
+      <Routes>
+        {/* path = l'adresse dans la barre et {< ici c'est la page que l'on veut afficher/>} */}
+        <Route path='/' element={<HomeScreen />} />
+        <Route path='/About' element={<About />} />
+        <Route path='/Contact' element={<Contact />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
