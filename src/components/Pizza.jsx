@@ -1,10 +1,16 @@
-import { Card, Row, Button, Col } from 'react-bootstrap';
+import { Card, Row, Button, Col, Modal } from 'react-bootstrap';
 import React, {useState} from "react";
 
 // props = propriétés
 const Pizza = (props) => {
     const[taille, setTaille] = useState('small');
     const[quantite, setQuantite] = useState(1);
+    const [show, setShow] = useState(false);
+
+    const handleClose = ()=> setShow(false);
+    const handleShow = ()=> setShow(true);
+
+    const [modalShow, setModalShow] = React.useState(false);
         return (
                 <>
                 <Card style={{ width: "18rem" }}>
@@ -39,11 +45,45 @@ const Pizza = (props) => {
                                 </Col>
                             </Row>
                         </Card.Text>
-                        <Button variant='primary'>Choisir cette pizza</Button>
+                        <Row>
+                            <Col md={3}>
+                                Prix : {props.lapizza.prices[0][taille] * quantite} €
+                            </Col>
+                            <Col md={4}>
+                                <Button className = "bg-warning text-light">Ajouter</Button>
+                            </Col> 
+                            <Col md={5}>
+                            <Button variant="primary" onClick={handleShow}>
+                                    Description</Button>
+                                </Col>                        
+                        </Row>
                     </Card.Body>
                 </Card>
-                </>
-    )
-};
+                {/* <Button variant='primary'>Choisir cette pizza</Button> */}
+                {/* Modal */}
+                <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Farmhouse</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Card.Title>{props.lapizza.name}</Card.Title>
+        <Card.Img variant="top" src={props.lapizza.image} />
+        </Modal.Body>
+        <Modal.Footer className="justify-content-start">
+            <h3>Description</h3>
+        <Card.Text>
+            {props.lapizza.description}</Card.Text>
+        </Modal.Footer>
+      </Modal>
+      
+    </>
+  );
+}
 
+     
 export default Pizza;
